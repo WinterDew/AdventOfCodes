@@ -17,6 +17,7 @@ std::vector<std::string> readInput(const char* filename = "input.txt"){
     while(std::getline(file,line)){
         text.push_back(line);
     }
+    file.close();
     return text;
 }
 
