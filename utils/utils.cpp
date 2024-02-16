@@ -20,17 +20,17 @@ std::vector<std::string> readInput(const char* filename = "input.txt"){
 }
 
 
-std::string stripl(std::string message){
-    message.erase(message.find_last_not_of(' ')+1);         
+std::string stripl(std::string message, std::string token = " "){
+    message.erase(message.find_last_not_of(token)+1);         
     return message;
 }
-std::string stripr(std::string message){
-    message.erase(0, message.find_first_not_of(' ')); 
+std::string stripr(std::string message, std::string token = " "){
+    message.erase(0, message.find_first_not_of(token)); 
     return message;
 }
-std::string strip(std::string message){
-    message = stripr(message);
-    message = stripl(message);
+std::string strip(std::string message, std::string token = " "){
+    message = stripr(message, token);
+    message = stripl(message, token);
     return message;
 }
 std::vector<std::string> split(std::string message, std::string delim){
@@ -40,6 +40,7 @@ std::vector<std::string> split(std::string message, std::string delim){
         std::string token = message.substr(0, pos);
         result.push_back(token);
         message.erase(0, pos + delim.length());
+        result.push_back(message);
     }
     return result;
 }
