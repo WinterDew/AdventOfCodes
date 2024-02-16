@@ -3,7 +3,7 @@
 #include<vector>
 
 template<typename T>
-void println(T message){
+void println(T message = "Hello, World!"){
     std::cout << message << std::endl;
 }
 
