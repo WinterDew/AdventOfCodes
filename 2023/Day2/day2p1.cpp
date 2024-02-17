@@ -13,11 +13,11 @@ using Svec = std::vector<str>;
 int main(){
     auto text = readInput("sample.txt");
     int id = 1;
-    for (str line: text){
+    for (str game: text){
         println("==========================");
         println("======= GAME: " + std::to_string(id) + " ==========");
-        for(str piece :split(split(line,":")[1],";")){
-            println(piece);
+        for(str set :split(split(game,":")[1],";")){
+            println(set);
         }
 
         id++;

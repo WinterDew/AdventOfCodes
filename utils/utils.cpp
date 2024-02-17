@@ -40,8 +40,9 @@ std::vector<std::string> split(std::string message, std::string delim){
         std::string token = message.substr(0, pos);
         result.push_back(token);
         message.erase(0, pos + delim.length());
-        result.push_back(message);
+        // result.push_back(message);
     }
+    result.push_back(message);
     return result;
 }
 
