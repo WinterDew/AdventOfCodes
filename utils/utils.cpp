@@ -1,10 +1,16 @@
 #include<iostream>
 #include<fstream>
 #include<vector>
+#include<algorithm>
 
 template<typename T>
 void println(T message = "Hello, World!"){
     std::cout << message << std::endl;
+}
+
+template<typename T>
+void print(T message = "Hello, World!"){
+    std::cout << message;
 }
 
 std::vector<std::string> readInput(const char* filename = "input.txt"){
@@ -46,3 +52,7 @@ std::vector<std::string> split(std::string message, std::string delim){
     return result;
 }
 
+template<typename T>
+bool checkInVec(T elem, std::vector<T> vec){
+    return std::find(vec.begin(), vec.end(), elem) != vec.end();
+}
