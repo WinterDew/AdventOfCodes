@@ -57,7 +57,12 @@ bool checkAround(std::vector<std::string> &lines, size_t lineNum, size_t index){
 
 
 int main(){
-    auto text = readInput("sample2.txt");
+    vec text;
+    
+    for (str line : readInput("sample.txt")){
+        text.push_back("."+line+".");
+    }
+    
     long long sum = 0;
 
     for( int lno = 0; lno < text.size(); lno++){
@@ -73,34 +78,27 @@ int main(){
             //loop every char;
 
 
-            bool flag = 0;
             if(std::isdigit(chr)){ // check if digit, and scan in current line for complete number.
                 while(std::isdigit(line[chrno + counter])){
                     counter++;
                 }
                 current_no = std::stoi(line.substr(chrno,chrno+counter)); // save complete number as current number
-                for(int i = chrno; i < chrno + counter; i++){
+                for(int i = 0; i < counter; i++){
                     // loop over the number checking thru 3x3 grid;
-                    flag = checkAround(text,lno,i);
-                    if(flag){
+                    if(checkAround(text,lno, i + chrno)){
+                        sum += current_no;
                         break; // if any digit in current number is next to a symbol, break loop and mark number as valid.
+
                     }
 
                 }
                 chrno += counter;
-                print(std::to_string(current_no) + "("); // print current number in question.
-                print(flag ? "Yes" : "No");
-                print("), ");
-                if(flag){
-                    sum += current_no;
-                    flag = 0;
-                }
+                print(std::to_string(current_no) + ", "); // print current number in question.
                 
                 
             }
            
         } // end char loop;
-        println("");
         println("");
 
     
