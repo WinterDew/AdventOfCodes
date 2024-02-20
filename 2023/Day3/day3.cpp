@@ -57,55 +57,41 @@ bool checkAround(std::vector<std::string> &lines, size_t lineNum, size_t index){
 
 
 int main(){
-    vec text;
-    
-    for (str line : readInput("sample.txt")){
-        text.push_back("."+line+".");
-    }
-    
+    auto text = readInput("input.txt");
+	str currentNo = "";
+    bool flag = 0;
     long long sum = 0;
+	
 
-    for( int lno = 0; lno < text.size(); lno++){
-        // loop every line;
-        str line = text[lno];
-        long long current_no;
-        int counter = 0;
-        println(line); // print current line.
+    for(int lno = 0; lno < text.size(); lno++){
+		// for every line.
 
+		println(text[lno]);
+		str line = text[lno];
+		for(int chrno = 0; chrno < line.size(); chrno++){
+			char chr = line[chrno];
+			if(std::isdigit(chr)){
+				while(std::isdigit(line[chrno])){
+					currentNo += line[chrno];
+					if(checkAround(text,lno,chrno)){
+						flag = 1;
+					}
+					chrno++;
+				}
+			}
+			if(flag){
+				print(currentNo + ",");
+				sum += std::stoi(currentNo);
+				
+			}
+			currentNo = "";
+			flag = 0;
+		}
+		println("");
 
-        for( int chrno = 0; chrno < line.size(); chrno++){
-            char chr = line[chrno];
-            //loop every char;
+	}// end for every line.
 
-
-            if(std::isdigit(chr)){ // check if digit, and scan in current line for complete number.
-                while(std::isdigit(line[chrno + counter])){
-                    counter++;
-                }
-                current_no = std::stoi(line.substr(chrno,chrno+counter)); // save complete number as current number
-                for(int i = 0; i < counter; i++){
-                    // loop over the number checking thru 3x3 grid;
-                    if(checkAround(text,lno, i + chrno)){
-                        sum += current_no;
-                        break; // if any digit in current number is next to a symbol, break loop and mark number as valid.
-
-                    }
-
-                }
-                chrno += counter;
-                print(std::to_string(current_no) + ", "); // print current number in question.
-                
-                
-            }
-           
-        } // end char loop;
-        println("");
-
-    
-    
-    } // end line loop;
-
-
+	println("");
     println("==================PART 1===================");
     println("Answer is: " + std::to_string(sum));
     
