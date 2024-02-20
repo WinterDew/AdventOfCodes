@@ -54,13 +54,30 @@ bool checkAround(std::vector<std::string> &lines, size_t lineNum, size_t index){
 	return found;
 }
 
+bool lookAround(vec lines, size_t lno, size_t idx, char lookup){
+	std::vector<int> vj;
+	std::vector<int> vi;
+	if(lno > 0) vj.push_back(-1);
+	if(lno < lines.size()-1) vj.push_back(1);
+	if(idx > 0) vi.push_back(-1);
+	if(idx < lines[lno].size()-1) vi.push_back(1);
+	vj.push_back(0);vi.push_back(0);
 
+	for(int j : {-1,0,1}){
+		for(int i: {-1,0,1}){
+			if(lines[lno + j][idx + i] == lookup){
+				return true;
+			}
+		}
+	}
+}
 
 int main(){
     auto text = readInput("input.txt");
 	str currentNo = "";
     bool flag = 0;
     long long sum = 0;
+	long long sum2 = 0;
 	
 
     for(int lno = 0; lno < text.size(); lno++){
@@ -92,8 +109,14 @@ int main(){
 	}// end for every line.
 
 	println("");
+
+
+
+	println("");
     println("==================PART 1===================");
     println("Answer is: " + std::to_string(sum));
+	println("==================PART 2===================");
+    println("Answer is: " + std::to_string(sum2));
     
     return 0;
 }
